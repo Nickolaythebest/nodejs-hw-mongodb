@@ -38,6 +38,5 @@ export const updateContact = async (contactId, payload, options = {}) => {
 };
 
 export const deleteContact = async (contactId) => {
-  const contact = await ContactsCollection.findByIdAndDelete(contactId);
-  return contact;
+  return await ContactsCollection.findByIdAndDelete(contactId);
 };
