@@ -7,7 +7,7 @@ export const getAllContacts = async ({
    page = 1,
    perPage = 10,
    sortOrder = SORT_ORDER.ASC,
-   sortBy = '_id',
+   sortBy = 'name',
    filter = {},
   }) => {
   const limit = perPage;
@@ -15,18 +15,9 @@ export const getAllContacts = async ({
 
   const contactsQuery = ContactsCollection.find();
 
-  if(filter.type) {
+  if(typeof filter.isFavorite === 'boolean') {
     contactsQuery.where('type').equals(filter.type);
-  }
-  if(filter.name) {
-    contactsQuery.where('name').equals(filter.name);
-  }
-  if(filter.phoneNumber) {
-    contactsQuery.where('phonenumber').equals(filter.phoneNumber);
-  }
-  if(filter.email) {
-    contactsQuery.where('email').equals(filter.email);
-  }
+  };
   if(filter.isFavorite) {
     contactsQuery.where('isFavorite').equals(filter.isFavorite);
   };

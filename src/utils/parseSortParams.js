@@ -1,33 +1,27 @@
 import { SORT_ORDER } from "../constants/index.js";
 
-const parseSortOrder = (sortorder) => {
-    const isKnownOrder = [SORT_ORDER.ASC, SORT_ORDER.DESC].includes(sortorder);
-    if(isKnownOrder) return sortorder;
-    return SORT_ORDER.ASC;
+const parseSortOrder = (sortOrder) => {
+    if (typeof sortOrder !== 'string') return SORT_ORDER.ASC;
+    const normalizedOrder = sortOrder.toLowerCase();
+    return normalizedOrder === 'desc' ? SORT_ORDER.DESC : SORT_ORDER.ASC;
 };
 
 const parseSortBy = (sortBy) => {
-    const keyOfContacts = [
+    const validFields = [
         '_id',
         'name',
-        'phoneNumber',
+        'phone', // Исправлено с phoneNumber
         'email',
-        'isFavourite',
-        'contactType',
+        'isFavorite', // Исправлено с isFavourite
+        'type', // Исправлено с contactType
     ];
-    if(keyOfContacts.includes(sortBy)) {
-        return sortBy;
-    }
-    return '_id';
+    return validFields.includes(sortBy) ? sortBy : '_id';
 };
+
 export const parseSortParams = (query) => {
-    const {sortorder, sortBy} = query;
-
-    const parsedSortOrder = parseSortOrder(sortorder);
-    const parsedSortBy = parseSortBy(sortBy);
-
+    const { sortOrder = 'asc', sortBy = '_id' } = query;
     return {
-        sortorder: parsedSortOrder,
-        sortBy: parsedSortBy,
+        sortOrder: parseSortOrder(sortOrder),
+        sortBy: parseSortBy(sortBy),
     };
 };
