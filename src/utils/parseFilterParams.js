@@ -20,7 +20,7 @@ export const parseFilterParams = (query) => {
     const parseIsFavorite = isFavourite !== undefined ? parseBoolean(isFavourite) : undefined;
 
     return {
-        type: parseContactType,
-        isFavorite: parseIsFavorite,
+        contactType: parseContactType,
+        isFavourite: parseIsFavorite,
     };
 };
