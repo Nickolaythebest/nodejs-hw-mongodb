@@ -7,6 +7,9 @@ const parseType = (contactType) => {
 
 
 const parseBoolean = (value) => {
+    if (typeof value === 'boolean') {
+        return value;
+    }
     if (typeof value === 'string') {
         return value.toLowerCase() === 'true';
     }
@@ -17,7 +20,8 @@ export const parseFilterParams = (query) => {
     const {contactType, isFavorite} = query;
 
     const parseContactType = parseType(contactType);
-    const parseIsFavorite = isFavorite !== undefined ? parseBoolean(isFavorite) : undefined;
+    const parseIsFavorite = parseBoolean(isFavorite);
+
 
     return {
         contactType: parseContactType,

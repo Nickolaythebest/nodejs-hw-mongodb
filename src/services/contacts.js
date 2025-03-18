@@ -13,14 +13,14 @@ export const getAllContacts = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const contactsQuery = ContactsCollection.find();
+  const contactsQuery = ContactsCollection.find(filter);
 
-  if(filter.contactType) {
-    contactsQuery.where('contactType').equals(filter.contactType);
-  }
-  if(typeof filter.isFavorite === 'boolean') {
-    contactsQuery.where('isFavorite').equals(filter.isFavorite);
-  }
+  if (filter.contactType) {
+    contactsQuery.where({ contactType: filter.contactType });
+}
+if (filter.isFavorite !== undefined) {
+    contactsQuery.where({ isFavorite: filter.isFavorite });
+}
 
   const [contactsCount, contacts] = await Promise.all([ContactsCollection.find()
     .merge(contactsQuery)
