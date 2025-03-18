@@ -11,7 +11,7 @@ const parseBoolean = (value) => {
         return value;
     }
     if (typeof value === 'string') {
-        return value.toLowerCase(value);
+        return value.toLowerCase() === 'true';
     }
     return undefined;
 };
