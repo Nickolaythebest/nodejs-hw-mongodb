@@ -15,7 +15,7 @@
      email: {
        type: String,
      },
-     isFavourite: {
+     isFavorite: {
        type: Boolean,
        default: false,
      },
