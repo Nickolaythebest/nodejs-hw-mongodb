@@ -1,4 +1,3 @@
-
 import { SORT_ORDER } from '../constants/index.js';
 import { ContactsCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
@@ -18,8 +17,8 @@ export const getAllContacts = async ({
   if (filter.contactType) {
     contactsQuery.where({ contactType: filter.contactType });
 }
-if (typeof filter.isFavorite === 'boolean') {
-  contactsQuery.where('isFavorite').equals(filter.isFavorite);
+if (typeof filter.isFavourite === 'boolean') {
+  contactsQuery.where('isFavourite').equals(filter.isFavourite);
 }
 
   const [contactsCount, contacts] = await Promise.all([ContactsCollection.find()

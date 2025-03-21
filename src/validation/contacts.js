@@ -18,7 +18,7 @@ export const createContactSchema = Joi.object({
         'string.min': 'Email should have at least {#limit} characters',
         'string.max': 'Email should have at most {#limit} characters',
       }),
-      isFavorite: Joi.boolean(),
+      isFavourite: Joi.boolean(),
       contactType: Joi.string().valid('work', 'home', 'personal').required().messages({
         'string.base': 'Type of contact should be a string', // Кастомізація повідомлення для типу "string"
         'string.valid': 'Type of contact should be work order home order personal',
@@ -43,7 +43,7 @@ export const updateContactSchema = Joi.object({
         'string.min': 'Email should have at least {#limit} characters',
         'string.max': 'Email should have at most {#limit} characters',
       }),
-      isFavorite: Joi.boolean(),
+      isFavourite: Joi.boolean(),
       contactType: Joi.string().valid('work', 'home', 'personal').messages({
         'string.base': 'Type of contact should be a string', // Кастомізація повідомлення для типу "string"
         'string.valid': 'Type of contact should be work order home order personal',
