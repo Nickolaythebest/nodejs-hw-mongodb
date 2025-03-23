@@ -40,20 +40,19 @@ if (typeof filter.isFavourite === 'boolean') {
   };
 };
 
-export const getContactById = async (contactId) => {
-  const contact = await ContactsCollection.findById(contactId);
-  console.log (contactId);
+export const getContactById = async (contactId, userId) => {
+  const contact = await ContactsCollection.findOne({_id: contactId, userId});
   return contact;
 };
 
-export const createContact = async (payload) => {
-  const contact = await ContactsCollection.create(payload);
+export const createContact = async (payload, userId) => {
+  const contact = await ContactsCollection.create( ...payload, userId);
   return contact;
 };
 
-export const updateContact = async (contactId, payload, options = {}) => {
+export const updateContact = async (contactId, payload, userId, options = {}) => {
   const rawResult = await ContactsCollection.findOneAndUpdate(
-    { _id: contactId },
+    { _id: contactId, userId },
     payload,
     {
       new: true,
@@ -70,8 +69,9 @@ export const updateContact = async (contactId, payload, options = {}) => {
   };
 };
 
-export const deleteContact = async (contactId) => {
+export const deleteContact = async (contactId, userId) => {
   return await ContactsCollection.findByIdAndDelete({
     _id: contactId,
+    userId,
   });
 };
