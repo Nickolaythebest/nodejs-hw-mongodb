@@ -5,7 +5,7 @@ import { loginUserController, logoutUserController, refreshUserSessionController
 import {ctrlWrapper} from '../utils/ctrlWrapper.js';
 
 
-const router = Router;
+const router = Router();
 
 router.post(
     '/register',
