@@ -1,5 +1,5 @@
 import { THIRTY_DAY } from "../constants/index.js";
-import { loginUser, logoutUser, refreshUserSesssion, registerUser } from "../services/auth.js";
+import { loginUser, logoutUser, refreshUserSession, registerUser } from "../services/auth.js";
 
 
 export const registerUserController = async (req, res) => {
@@ -56,7 +56,7 @@ const setupSession = (res, session) => {
   };
 
   export const refreshUserSessionController = async (req, res) => {
-    const session = await refreshUserSesssion({
+    const session = await refreshUserSession({
       sessionId: req.cookies.sessionId,
       refreshToken: req.cookies.refreshToken,
     });
