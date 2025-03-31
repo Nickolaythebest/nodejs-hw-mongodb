@@ -64,6 +64,8 @@ export const patchContactController = async (req, res, next) => {
     const userId = req.user._id;
     const photo = req.file;
 
+    console.log("Uploaded file:", req.file); // Логируем загруженный файл
+
     let photoUrl;
 try {
     if (photo) {
@@ -82,7 +84,7 @@ try {
       res.json({
         status: 200,
         message: `Successfully patched a contact!`,
-        data: result.contact,
+        data: result,
       });
 } catch (err) {
   next(err);
