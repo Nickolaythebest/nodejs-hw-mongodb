@@ -9,14 +9,14 @@ export const SORT_ORDER = {
   export const FIFTEEN_MINUTES = 15 * 60 * 1000;
   export const THIRTY_DAY = 30 * 24 * 60 * 60 * 1000;
 
-  export  const SMTP = {
-    SMTP_HOST: 'SMTP_HOST',
-    SMTP_PORT: 'SMTP_PORT',
-    SMTP_USER: 'SMTP_USER',
-    SMTP_PASSWORD: 'SMTP_PASSWORD',
-    SMTP_FROM: 'SMTP_FROM',
-    JWT_SECRET: 'JWT_SECRET',
-    APP_DOMAIN: 'APP_DOMAIN',
+  export const SMTP = {
+    SMTP_HOST: getEnvVar('SMTP_HOST'),
+    SMTP_PORT: getEnvVar('SMTP_PORT'),
+    SMTP_USER: getEnvVar('SMTP_USER'),
+    SMTP_PASSWORD: getEnvVar('SMTP_PASSWORD'),
+    SMTP_FROM: getEnvVar('SMTP_FROM'),
+    JWT_SECRET: getEnvVar('JWT_SECRET'),
+    APP_DOMAIN: getEnvVar('APP_DOMAIN'),
   };
 
   export const TEMPLATES_DIR = path.join(process.cwd(), 'src', 'templates');
@@ -25,8 +25,8 @@ export const SORT_ORDER = {
   export const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
 
   export const CLOUDINARY = {
-    CLOUD_NAME: 'CLOUD_NAME',
-    API_KEY: 'API_KEY',
-    API_SECRET: 'API_SECRET',
+    CLOUD_NAME: getEnvVar('CLOUD_NAME'),
+    API_KEY: getEnvVar('API_KEY'),
+    API_SECRET: getEnvVar('API_SECRET'),
   };
   

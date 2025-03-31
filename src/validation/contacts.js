@@ -56,5 +56,6 @@ export const updateContactSchema = Joi.object({
         'string.base': 'Type of contact should be a string', // Кастомізація повідомлення для типу "string"
         'string.valid': 'Type of contact should be work order home order personal',
       }),
+      photo: Joi.string(),
 });
 

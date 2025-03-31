@@ -65,7 +65,7 @@ export const patchContactController = async (req, res, next) => {
     const photo = req.file;
 
     let photoUrl;
-
+try {
     if (photo) {
       if(getEnvVar('ENABLE_CLOUDINARY') === 'true') {
         photoUrl = await saveFileToCloudinary(photo);
@@ -74,7 +74,7 @@ export const patchContactController = async (req, res, next) => {
       }
     }
     
-    const result = await updateContact(contactId, req.body, userId);
+    const result = await updateContact(contactId, { ...req.body, photoUrl }, userId);
     if (!result) {
         throw createHttpError(404, 'Contact not found');
       }
@@ -84,7 +84,11 @@ export const patchContactController = async (req, res, next) => {
         message: `Successfully patched a contact!`,
         data: result.contact,
       });
+} catch (err) {
+  next(err);
+}
 };
+
 
 export const deleteContactController = async (req, res, next) => {
     const { contactId } = req.params;
