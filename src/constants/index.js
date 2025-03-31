@@ -27,8 +27,7 @@ export const SORT_ORDER = {
   export const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
 
   export const CLOUDINARY = {
-    CLOUD_NAME: getEnvVar('CLOUD_NAME'),
-    API_KEY: getEnvVar('API_KEY'),
-    API_SECRET: getEnvVar('API_SECRET'),
+    CLOUD_NAME: 'CLOUDINARY_CLOUD_NAME',
+    API_KEY: 'CLOUDINARY_API_KEY',
+    API_SECRET: 'CLOUDINARY_API_SECRET'
   };
-  
