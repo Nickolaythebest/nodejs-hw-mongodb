@@ -2,6 +2,10 @@
 import path from 'node:path';
 import { getEnvVar } from '../utils/getEnvVar.js';
 
+export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'temp');
+export const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
+export const TEMPLATES_DIR = path.join(process.cwd(), 'src', 'templates');
+
 
 export const SORT_ORDER = {
     ASC: 'asc',
@@ -21,10 +25,9 @@ export const SORT_ORDER = {
     APP_DOMAIN: getEnvVar('APP_DOMAIN'),
   };
 
-  export const TEMPLATES_DIR = path.join(process.cwd(), 'src', 'templates');
+  
 
-  export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'temp');
-  export const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
+  
 
   export const CLOUDINARY = {
     CLOUD_NAME: 'CLOUD_NAME',

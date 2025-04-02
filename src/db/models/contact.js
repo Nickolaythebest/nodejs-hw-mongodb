@@ -30,7 +30,10 @@
       ref: 'User',
       required: true,
      },
-     photo: { type: String },
+     photo: {
+       type: String,
+      default: null,
+     },
    },
    {
      timestamps: true,
