@@ -1,24 +1,28 @@
-// src/utils/sendMail.js
-
 import nodemailer from 'nodemailer';
-
 import { SMTP } from '../constants/index.js';
- import { getEnvVar } from '../utils/getEnvVar.js';
 
 const transporter = nodemailer.createTransport({
-   host: getEnvVar(SMTP.SMTP_HOST),
-   port: Number( getEnvVar(SMTP.SMTP_PORT)),
-   auth: {
-     user: getEnvVar(SMTP.SMTP_USER),
-     pass: getEnvVar(SMTP.SMTP_PASSWORD),
+  host: SMTP.SMTP_HOST,  // Убираем повторный вызов getEnvVar()
+  port: Number(SMTP.SMTP_PORT),
+  secure: Number(SMTP.SMTP_PORT) === 465, // true для 465 (SSL), false для 587 (TLS)
+  auth: {
+    user: SMTP.SMTP_USER,
+    pass: SMTP.SMTP_PASSWORD,
   },
 });
 
-export const sendEmail = async(to, subject, content) => {
-   return await transporter.sendMail({
-      from: getEnvVar(SMTP.SMTP_FROM),
+export const sendEmail = async (to, subject, content) => {
+  try {
+    const info = await transporter.sendMail({
+      from: SMTP.SMTP_FROM,
       to,
       subject,
       html: content,
     });
+    console.log(`✅ Email sent: ${info.messageId}`);
+    return info;
+  } catch (error) {
+    console.error('❌ Error sending email:', error);
+    throw new Error('Failed to send email');
+  }
 };
