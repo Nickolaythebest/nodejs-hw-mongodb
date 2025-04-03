@@ -9,8 +9,8 @@ import fs from 'node:fs/promises';
 import { UsersCollection } from "../db/models/user.js";
 import { SessionsCollection } from "../db/models/session.js";
 import { FIFTEEN_MINUTES, THIRTY_DAY, TEMPLATES_DIR } from "../constants/index.js";
-import { getEnvVar } from '../utils/getEnvVar.js';
-import { sendEmail } from "../utils/sendEmail.js";
+import { getEnvVar } from "../utils/getEnvVar.js";
+import { sendEmail } from "../utils/sendMail.js";
 
 
 
@@ -121,7 +121,7 @@ export const requestResetToken = async ( email ) => {
       try {
         await sendEmail(email, 'Reset your password', html);
     } catch (error) {
-      console.log(error);
+      console.log('email error:', error);
         throw createHttpError(500, 'Failed to send the email, please try again later.');
     }
 };
