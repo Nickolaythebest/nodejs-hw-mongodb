@@ -10,6 +10,8 @@ import { UsersCollection } from "../db/models/user.js";
 import { SessionsCollection } from "../db/models/session.js";
 import { FIFTEEN_MINUTES, THIRTY_DAY, TEMPLATES_DIR } from "../constants/index.js";
 import { getEnvVar } from '../utils/getEnvVar.js';
+import { sendEmail } from "../utils/sendEmail.js";
+
 
 
 export const registerUser = async (payload) => {
