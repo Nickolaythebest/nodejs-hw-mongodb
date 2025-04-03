@@ -119,6 +119,7 @@ export const requestResetToken = async ( email ) => {
       try {
         await sendEmail(email, 'Reset your password', html);
     } catch (error) {
+      console.log(error);
         throw createHttpError(500, 'Failed to send the email, please try again later.');
     }
 };
