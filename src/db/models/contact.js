@@ -32,7 +32,6 @@
      },
      photo: {
        type: String,
-      default: null,
      },
    },
    {

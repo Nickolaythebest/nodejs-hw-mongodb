@@ -51,16 +51,22 @@ export const getFaviconController = async (req, res) => {
 
 export const createContactController = async (req, res, next) => {
   try {
+    console.log("Received file:", req.file);
+    console.log("Request body:", req.body);
+
     const userId = req.user._id;
     const photo = req.file;
+    console.log('req.photo:', photo);
     let photoUrl = null;
 
     if (photo) {
-      if (getEnvVar("UPLOAD_TO_CLOUDINARY") === "true") {
+      if (getEnvVar('UPLOAD_TO_CLOUDINARY') === 'true') {
         const result = await saveFileToCloudinary(photo.path);
-        photoUrl = result.secure_url;
+        photoUrl = result.secure_url; // исправлено
       } else {
-        photoUrl = await saveFileToUploadDir(photo);
+        const newPath = path.resolve('src', 'uploads', photo.filename);
+        await fs.rename(photo.path, newPath);
+        photoUrl = `/uploads/${photo.filename}`; // Указываем относительный путь
       }
     }
 
@@ -91,8 +97,8 @@ export const patchContactController = async (req, res, next) => {
 
     if (photo) {
       if (getEnvVar("UPLOAD_TO_CLOUDINARY") === "true") {
-        photoUrl = await saveFileToCloudinary(photo.path);
-        
+        const result = await saveFileToCloudinary(photo.path);
+        photoUrl = result.secure_url; // Добавь .secure_url
       } else {
         photoUrl = await saveFileToUploadDir(photo);
       }
