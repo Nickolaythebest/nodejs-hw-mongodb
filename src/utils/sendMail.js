@@ -4,10 +4,13 @@ import { SMTP } from '../constants/index.js';
 const transporter = nodemailer.createTransport({
   host: SMTP.SMTP_HOST,  // Убираем повторный вызов getEnvVar()
   port: Number(SMTP.SMTP_PORT),
-  secure: Number(SMTP.SMTP_PORT) === 465, // true для 465 (SSL), false для 587 (TLS)
+  secure: false, // true для 465 (SSL), false для 587 (TLS)
   auth: {
     user: SMTP.SMTP_USER,
     pass: SMTP.SMTP_PASSWORD,
+  },
+  tls: {
+    rejectUnauthorized: false, // ✅ Игнорируем самоподписанные сертификаты
   },
 });
 
