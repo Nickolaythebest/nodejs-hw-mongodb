@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import pino from 'pino-http';
 import dotenv from 'dotenv';
+import { swaggerDocs } from './middlewares/swaggerDocs.js' ;
 
 import { getEnvVar } from './utils/getEnvVar.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
@@ -33,6 +34,8 @@ export const setupServer = () => {
  app.get('/', (req, res) => {
   res.send('Добро пожаловать в API Контактов');
 });
+
+ app.use('/api-docs', ...swaggerDocs());
 
   app.use(router);
 

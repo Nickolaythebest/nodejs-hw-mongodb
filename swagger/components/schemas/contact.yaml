@@ -1,0 +1,64 @@
+type: object
+required:
+  - _id
+  - name
+  - phoneNumber      
+  - contactType
+  - userId
+  - createdAt
+  - updatedAt
+
+properties:
+  _id:
+    description: "Contact's id"
+    type: string
+    example: 67eb0c6b3ef6ff2768d3bb80
+
+  name:
+    description: "Name of contact"
+    type: string
+    example: Mykola
+
+  phoneNumber:     # Исправлена опечатка
+    description: "Phone number of contact"
+    type: string
+    example: 380123456789
+
+  email:
+    description: "Email of contact"
+    type: string
+    example: mykola@example.com
+
+  isFavourite:
+    description: "Is this your favourite contact?"
+    type: boolean
+    example: false
+
+  contactType:
+    description: "Type of contact"
+    type: string
+    enum: ['work', 'home', 'personal']
+    example: personal
+
+  userId:
+    description: "User's ID"
+    type: string
+    example: 67e279daa81c9e96874e80f3
+
+  photo:
+    description: "User's avatar"
+    type: string
+    example: https://res.cloudinary.com/dkz6akoot/image/upload/v1743886126/yiwxsdgd4ffsbdrbxcn2.png
+    default: null
+
+  createdAt:
+    description: "Contact creation date"
+    type: string
+    format: date-time
+    example: 2025-03-31T21:43:07.507Z
+
+  updatedAt:
+    description: "Contact update date"
+    type: string
+    format: date-time
+    example: 2025-04-05T20:48:47.386Z

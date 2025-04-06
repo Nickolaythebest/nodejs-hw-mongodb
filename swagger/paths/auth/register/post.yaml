@@ -1,0 +1,80 @@
+tags:
+  - Register
+summary: Create user account
+operationId: postRegister
+description: Create user account
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            description: "User's name"
+            type: string
+            example: "Mykola"
+          email:
+            description: "User's email"
+            type: string
+            example: "mykola@example.com"
+          password:
+            description: "User's password"
+            type: string
+            example: "12345qw"
+          
+responses:
+  '200':
+    description: "Successfully registered a user"
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Successfully registered a user!"
+            data:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  description: "User's unique ID"
+                  example: "67f2859d3d970acace9d0d03"
+                name:
+                  type: string
+                  description: "User's name"
+                  example: "Mykola"
+                email:
+                  type: string
+                  description: "User's email"
+                  example: "tutrur@gmail.com"
+                createdAt:
+                  type: string
+                  format: date-time
+                  description: "Account creation date"
+                  example: "2025-04-06T13:46:05.314Z"
+                updatedAt:
+                  type: string
+                  format: date-time
+                  description: "Account last update date"
+                  example: "2025-04-06T13:46:05.314Z"
+
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+
+  '404':
+    $ref: '../../../components/responses/404.yaml'
+
+  '500':
+    $ref: '../../../components/responses/500.yaml'

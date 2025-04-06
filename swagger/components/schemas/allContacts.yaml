@@ -1,0 +1,54 @@
+type: object
+required:
+  - data
+  - page
+  - perPage
+  - totalItems
+  - totalPages
+  - hasNextPage
+  - hasPreviousPage
+
+properties:
+  data:
+    description: List of contacts
+    type: array
+    items:
+      $ref: './contact.yaml'  # путь можно поменять в зависимости от расположения
+    example:
+      - _id: "67eb0c6b3ef6ff2768d3bb80"
+        name: "Mykola"
+        phoneNumber: "380123456789"
+        contactType: "personal"
+        userId: "67e279daa81c9e96874e80f3"
+        createdAt: "2025-03-31T21:43:07.507Z"
+        updatedAt: "2025-04-05T20:48:47.386Z"
+
+  page:
+    description: "Current page"
+    type: integer
+    example: 1
+
+  perPage:
+    description: "Limit of pages"
+    type: integer
+    example: 10
+
+  totalItems:
+    description: "Total contacts"
+    type: integer
+    example: 12
+
+  totalPages:
+    description: "Total pages"
+    type: integer
+    example: 2
+
+  hasNextPage:
+    description: "Has your list of contacts next page?"
+    type: boolean
+    example: true
+
+  hasPreviousPage:
+    description: "Has your list of contacts previous page?"
+    type: boolean
+    example: false
