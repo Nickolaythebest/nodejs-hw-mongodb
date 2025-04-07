@@ -1,10 +1,46 @@
 tags:
-  - Contacts
+  - Users
 summary: Get all contacts
 operationId: getContacts
-description: Get all contacts
+description: Get all contacts with optional search filters
 security:
   - bearerAuth: []
+parameters:
+  - name: name
+    in: query
+    description: Filter contacts by name (partial match)
+    required: false
+    schema:
+      type: string
+  - name: email
+    in: query
+    description: Filter contacts by email
+    required: false
+    schema:
+      type: string
+  - name: phoneNumber  # Виправлено орфографічну помилку тут
+    in: query
+    description: Filter contacts by phone number
+    required: false
+    schema:
+      type: string
+  - name: page
+    in: query
+    description: Page number for pagination
+    required: false
+    schema:
+      type: integer
+      minimum: 1
+      default: 1
+  - name: limit
+    in: query
+    description: Number of items per page
+    required: false
+    schema:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 10
 responses:
   '200':
     description: Get all contacts
@@ -24,13 +60,85 @@ responses:
               type: string
               example: "Successfully found contacts!"
             data:
-              $ref: '../../components/schemas/allContacts.yaml'
+              type: object
+              required:
+                - data
+                - page
+                - perPage
+                - totalItems
+                - totalPages
+                - hasNextPage
+                - hasPreviousPage
+              properties:
+                data:
+                  description: List of contacts
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - _id
+                      - name
+                      - phoneNumber
+                      - contactType
+                      - userId
+                      - createdAt
+                      - updatedAt
+                    properties:
+                      _id:
+                        type: string
+                        example: "67eb0c6b3ef6ff2768d3bb80"
+                      name:
+                        type: string
+                        example: "Mykola"
+                      phoneNumber:
+                        type: string
+                        example: "380123456789"
+                      contactType:
+                        type: string
+                        enum: [work, home, personal]
+                        example: "personal"
+                      userId:
+                        type: string
+                        example: "67e279daa81c9e96874e80f3"
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2025-03-31T21:43:07.507Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2025-04-05T20:48:47.386Z"
 
-  '401':
-    $ref: '../../components/responses/401.yaml'
+                page:
+                  type: integer
+                  description: Current page
+                  example: 1
 
-  '404':
-    $ref: '../../components/responses/404.yaml'
+                perPage:
+                  type: integer
+                  description: Limit of pages
+                  example: 10
 
+                totalItems:
+                  type: integer
+                  description: Total contacts
+                  example: 12
+
+                totalPages:
+                  type: integer
+                  description: Total pages
+                  example: 2
+
+                hasNextPage:
+                  type: boolean
+                  description: Has your list of contacts next page?
+                  example: true
+
+                hasPreviousPage:
+                  type: boolean
+                  description: Has your list of contacts previous page?
+                  example: false
+  '400':
+    $ref: '../../components/responses/400.yaml'
   '500':
     $ref: '../../components/responses/500.yaml'

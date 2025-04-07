@@ -1,5 +1,5 @@
 tags:
-  - Contact
+  - Users
 summary: Get contact by id
 operationId: getContact
 description: Get contacts by id

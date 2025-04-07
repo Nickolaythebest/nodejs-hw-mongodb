@@ -1,5 +1,5 @@
 tags:
-  - Login
+  - Auth
 summary: Login in account
 operationId: postLogin
 description: Login in account
@@ -51,9 +51,6 @@ responses:
 
   '401':
     $ref: '../../../components/responses/401.yaml'
-
-  '404':
-    $ref: '../../../components/responses/404.yaml'
 
   '500':
     $ref: '../../../components/responses/500.yaml'

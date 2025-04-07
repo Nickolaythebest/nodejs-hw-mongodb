@@ -1,8 +1,10 @@
 tags:
-  - Register
+  - Auth
 summary: Create user account
 operationId: postRegister
 description: Create user account
+security:
+  - bearerAuth: []
 requestBody:
   content:
     multipart/form-data:
@@ -27,7 +29,7 @@ requestBody:
             example: "12345qw"
           
 responses:
-  '200':
+  '201':
     description: "Successfully registered a user"
     content:
       application/json:
@@ -40,7 +42,7 @@ responses:
           properties:
             status:
               type: integer
-              example: 200
+              example: 201
             message:
               type: string
               example: "Successfully registered a user!"
@@ -72,9 +74,6 @@ responses:
 
   '401':
     $ref: '../../../components/responses/401.yaml'
-
-  '404':
-    $ref: '../../../components/responses/404.yaml'
 
   '500':
     $ref: '../../../components/responses/500.yaml'
