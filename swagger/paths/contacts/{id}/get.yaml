@@ -1,5 +1,5 @@
 tags:
-  - Users
+  - Auth
 summary: Get contact by id
 operationId: getContact
 description: Get contacts by id
@@ -32,6 +32,9 @@ responses:
               example: "Successfully found contact with id: 67eb0c6b3ef6ff2768d3bb80!"
             data:
               $ref: '../../../components/schemas/contact.yaml'
+  
+  '400':
+    $ref: '../../../components/responses/400.yaml'
 
   '401':
     $ref: '../../../components/responses/401.yaml'

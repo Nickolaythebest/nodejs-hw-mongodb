@@ -1,0 +1,19 @@
+description: Conflict — user with provided email already exists
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - error
+        - message
+      properties:
+        status:
+          type: integer
+          example: 409
+        error:
+          type: string
+          example: "Conflict"
+        message:
+          type: string
+          example: "User with this email already exists"

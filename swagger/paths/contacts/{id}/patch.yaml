@@ -1,5 +1,5 @@
 tags:
-  - Users
+  - Auth
 summary: Update contact
 operationId: patchContact
 description: Update an existing contact by ID
@@ -71,6 +71,8 @@ responses:
               example: "Successfully updated the contact!"
             data:
               $ref: '../../../components/schemas/contact.yaml'
+  '400':
+    $ref: '../../../components/responses/400.yaml'
 
   '401':
     $ref: '../../../components/responses/401.yaml'

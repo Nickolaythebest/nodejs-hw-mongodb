@@ -1,46 +1,36 @@
 tags:
-  - Users
+  - Auth
 summary: Get all contacts
 operationId: getContacts
-description: Get all contacts with optional search filters
+description: Get all contacts with optional search filters and sorting
 security:
   - bearerAuth: []
 parameters:
-  - name: name
-    in: query
-    description: Filter contacts by name (partial match)
-    required: false
-    schema:
-      type: string
-  - name: email
-    in: query
-    description: Filter contacts by email
-    required: false
-    schema:
-      type: string
-  - name: phoneNumber  # Виправлено орфографічну помилку тут
-    in: query
-    description: Filter contacts by phone number
-    required: false
-    schema:
-      type: string
   - name: page
     in: query
-    description: Page number for pagination
+    description: Page number for pagination (default is 1)
     required: false
     schema:
       type: integer
       minimum: 1
       default: 1
-  - name: limit
+  - name: perPage
     in: query
-    description: Number of items per page
+    description: Number of items per page (default is 10, maximum is 100)
     required: false
     schema:
       type: integer
       minimum: 1
       maximum: 100
       default: 10
+  - name: sortOrder
+    in: query
+    description: Sort order. Use 'asc' for ascending and 'desc' for descending (default is 'asc').
+    required: false
+    schema:
+      type: string
+      enum: [asc, desc]
+      default: "asc"
 responses:
   '200':
     description: Get all contacts
@@ -108,37 +98,30 @@ responses:
                         type: string
                         format: date-time
                         example: "2025-04-05T20:48:47.386Z"
-
                 page:
                   type: integer
                   description: Current page
                   example: 1
-
                 perPage:
                   type: integer
                   description: Limit of pages
                   example: 10
-
                 totalItems:
                   type: integer
                   description: Total contacts
                   example: 12
-
                 totalPages:
                   type: integer
                   description: Total pages
                   example: 2
-
                 hasNextPage:
                   type: boolean
                   description: Has your list of contacts next page?
                   example: true
-
                 hasPreviousPage:
                   type: boolean
                   description: Has your list of contacts previous page?
                   example: false
-  '400':
-    $ref: '../../components/responses/400.yaml'
+
   '500':
     $ref: '../../components/responses/500.yaml'

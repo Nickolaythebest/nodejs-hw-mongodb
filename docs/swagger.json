@@ -27,7 +27,7 @@
     "/contacts/{id}": {
       "get": {
         "tags": [
-          "Users"
+          "Auth"
         ],
         "summary": "Get contact by id",
         "operationId": "getContact",
@@ -77,6 +77,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "401": {
             "$ref": "#/components/responses/401"
           },
@@ -90,7 +93,7 @@
       },
       "delete": {
         "tags": [
-          "Users"
+          "Auth"
         ],
         "summary": "Delete contact",
         "operationId": "deleteContact",
@@ -115,6 +118,9 @@
           "204": {
             "description": "Successfully deleted a contact"
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "401": {
             "$ref": "#/components/responses/401"
           },
@@ -128,7 +134,7 @@
       },
       "patch": {
         "tags": [
-          "Users"
+          "Auth"
         ],
         "summary": "Update contact",
         "operationId": "patchContact",
@@ -224,6 +230,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "401": {
             "$ref": "#/components/responses/401"
           },
@@ -239,7 +248,7 @@
     "/contacts": {
       "post": {
         "tags": [
-          "Users"
+          "Auth"
         ],
         "summary": "Create contact",
         "operationId": "postContact",
@@ -332,9 +341,6 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
-          "404": {
-            "$ref": "#/components/responses/404"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -342,11 +348,11 @@
       },
       "get": {
         "tags": [
-          "Users"
+          "Auth"
         ],
         "summary": "Get all contacts",
         "operationId": "getContacts",
-        "description": "Get all contacts with optional search filters",
+        "description": "Get all contacts with optional search filters and sorting",
         "security": [
           {
             "bearerAuth": []
@@ -354,36 +360,9 @@
         ],
         "parameters": [
           {
-            "name": "name",
-            "in": "query",
-            "description": "Filter contacts by name (partial match)",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "email",
-            "in": "query",
-            "description": "Filter contacts by email",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "phoneNumber",
-            "in": "query",
-            "description": "Filter contacts by phone number",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "page",
             "in": "query",
-            "description": "Page number for pagination",
+            "description": "Page number for pagination (default is 1)",
             "required": false,
             "schema": {
               "type": "integer",
@@ -392,15 +371,29 @@
             }
           },
           {
-            "name": "limit",
+            "name": "perPage",
             "in": "query",
-            "description": "Number of items per page",
+            "description": "Number of items per page (default is 10, maximum is 100)",
             "required": false,
             "schema": {
               "type": "integer",
               "minimum": 1,
               "maximum": 100,
               "default": 10
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "Sort order. Use 'asc' for ascending and 'desc' for descending (default is 'asc').",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
             }
           }
         ],
@@ -527,9 +520,6 @@
               }
             }
           },
-          "400": {
-            "$ref": "#/components/responses/400"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -544,12 +534,9 @@
         "summary": "Create user account",
         "operationId": "postRegister",
         "description": "Create user account",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [],
         "requestBody": {
+          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -561,18 +548,18 @@
                 ],
                 "properties": {
                   "name": {
-                    "description": "User's name",
                     "type": "string",
+                    "description": "User's name",
                     "example": "Mykola"
                   },
                   "email": {
-                    "description": "User's email",
                     "type": "string",
+                    "description": "User's email",
                     "example": "mykola@example.com"
                   },
                   "password": {
-                    "description": "User's password",
                     "type": "string",
+                    "description": "User's password",
                     "example": "12345qw"
                   }
                 }
@@ -606,29 +593,24 @@
                       "properties": {
                         "_id": {
                           "type": "string",
-                          "description": "User's unique ID",
                           "example": "67f2859d3d970acace9d0d03"
                         },
                         "name": {
                           "type": "string",
-                          "description": "User's name",
                           "example": "Mykola"
                         },
                         "email": {
                           "type": "string",
-                          "description": "User's email",
                           "example": "tutrur@gmail.com"
                         },
                         "createdAt": {
                           "type": "string",
                           "format": "date-time",
-                          "description": "Account creation date",
                           "example": "2025-04-06T13:46:05.314Z"
                         },
                         "updatedAt": {
                           "type": "string",
                           "format": "date-time",
-                          "description": "Account last update date",
                           "example": "2025-04-06T13:46:05.314Z"
                         }
                       }
@@ -638,8 +620,8 @@
               }
             }
           },
-          "401": {
-            "$ref": "#/components/responses/401"
+          "409": {
+            "$ref": "#/components/responses/409"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -934,6 +916,35 @@
                 "data": {
                   "type": "string",
                   "example": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Conflict — user with provided email already exists",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "error",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 409
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Conflict"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User with this email already exists"
                 }
               }
             }

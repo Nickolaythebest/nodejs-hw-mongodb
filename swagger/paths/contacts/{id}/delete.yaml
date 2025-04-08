@@ -1,5 +1,5 @@
 tags:
-  - Users
+  - Auth
 summary: Delete contact
 operationId: deleteContact
 description: Delete contact by Id
@@ -16,6 +16,9 @@ parameters:
 responses:
   '204':
     description: Successfully deleted a contact
+
+  '400':
+    $ref: '../../../components/responses/400.yaml'
 
   '401':
     $ref: '../../../components/responses/401.yaml'
