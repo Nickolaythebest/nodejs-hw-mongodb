@@ -1,5 +1,5 @@
 tags:
-  - Auth
+  - Contacts
 summary: Create contact
 operationId: postContact
 description: Create a new contact
@@ -14,7 +14,6 @@ requestBody:
           - name
           - phoneNumber
           - contactType
-
         properties:
           name:
             description: "Name of contact"
@@ -67,6 +66,8 @@ responses:
               example: "Successfully created a new contact!"
             data:
               $ref: '../../components/schemas/contact.yaml'
+  '400':
+    $ref: ../../components/responses/400.yaml  
 
   '401':
     $ref: '../../components/responses/401.yaml'

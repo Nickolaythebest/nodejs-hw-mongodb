@@ -1,4 +1,4 @@
-description: Bad Request - Validation error
+description: Bad Request — The request was invalid or cannot be otherwise served
 content:
   application/json:
     schema:
@@ -6,18 +6,18 @@ content:
       required:
         - status
         - message
-        - errors
       properties:
         status:
           type: integer
           example: 400
         message:
           type: string
-          example: "Validation error"
+          example: "Bad Request"
         errors:
           type: array
+          description: Optional list of specific error messages
           items:
             type: string
           example:
-            - "Name is required"
-            - "Invalid email format"
+            - "Invalid ID format"
+            - "Missing required query parameter"

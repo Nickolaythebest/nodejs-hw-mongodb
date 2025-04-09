@@ -27,7 +27,7 @@
     "/contacts/{id}": {
       "get": {
         "tags": [
-          "Auth"
+          "Contacts"
         ],
         "summary": "Get contact by id",
         "operationId": "getContact",
@@ -93,7 +93,7 @@
       },
       "delete": {
         "tags": [
-          "Auth"
+          "Contacts"
         ],
         "summary": "Delete contact",
         "operationId": "deleteContact",
@@ -134,7 +134,7 @@
       },
       "patch": {
         "tags": [
-          "Auth"
+          "Contacts"
         ],
         "summary": "Update contact",
         "operationId": "patchContact",
@@ -248,7 +248,7 @@
     "/contacts": {
       "post": {
         "tags": [
-          "Auth"
+          "Contacts"
         ],
         "summary": "Create contact",
         "operationId": "postContact",
@@ -338,6 +338,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "401": {
             "$ref": "#/components/responses/401"
           },
@@ -348,7 +351,7 @@
       },
       "get": {
         "tags": [
-          "Auth"
+          "Contacts"
         ],
         "summary": "Get all contacts",
         "operationId": "getContacts",
@@ -394,6 +397,17 @@
                 "desc"
               ],
               "default": "asc"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Field to sort by name or createdAt",
+            "example": "name or createdAt",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "name"
             }
           }
         ],
@@ -519,6 +533,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -822,15 +839,14 @@
     },
     "responses": {
       "400": {
-        "description": "Bad Request - Validation error",
+        "description": "Bad Request — The request was invalid or cannot be otherwise served",
         "content": {
           "application/json": {
             "schema": {
               "type": "object",
               "required": [
                 "status",
-                "message",
-                "errors"
+                "message"
               ],
               "properties": {
                 "status": {
@@ -839,16 +855,17 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Validation error"
+                  "example": "Bad Request"
                 },
                 "errors": {
                   "type": "array",
+                  "description": "Optional list of specific error messages",
                   "items": {
                     "type": "string"
                   },
                   "example": [
-                    "Name is required",
-                    "Invalid email format"
+                    "Invalid ID format",
+                    "Missing required query parameter"
                   ]
                 }
               }

@@ -1,5 +1,5 @@
 tags:
-  - Auth
+  - Contacts
 summary: Get all contacts
 operationId: getContacts
 description: Get all contacts with optional search filters and sorting
@@ -31,6 +31,14 @@ parameters:
       type: string
       enum: [asc, desc]
       default: "asc"
+  - name: sortBy
+    in: query
+    description: Field to sort by name or createdAt
+    example: name or createdAt
+    required: false
+    schema:
+      type: string
+      default: name
 responses:
   '200':
     description: Get all contacts
@@ -122,6 +130,8 @@ responses:
                   type: boolean
                   description: Has your list of contacts previous page?
                   example: false
-
+  '401':
+    $ref: ../../components/responses/401.yaml
+    
   '500':
     $ref: '../../components/responses/500.yaml'
