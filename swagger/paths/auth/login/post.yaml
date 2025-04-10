@@ -3,11 +3,10 @@ tags:
 summary: Login in account
 operationId: postLogin
 description: Login in account
-security:
-  - bearerAuth: []
+security: []
 requestBody:
   content:
-    multipart/form-data:
+    application/json:
       schema:
         type: object
         required:
